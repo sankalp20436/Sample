@@ -1,0 +1,116 @@
+@import "tailwindcss";
+
+@theme {
+  --font-serif: "Cormorant Garamond", Georgia, "Times New Roman", serif;
+  --font-sans: "Plus Jakarta Sans", -apple-system, BlinkMacSystemFont, sans-serif;
+  --color-parchment: #f7ebdc;
+  --color-parchment-deep: #efe0ca;
+  --color-royal-maroon: #4d0821;
+  --color-velvet-maroon: #5e0b28;
+  --color-crimson-accent: #6d1230;
+  --color-antique-gold: #c9963e;
+  --color-ink-maroon: #4a1424;
+}
+
+@layer base {
+  html {
+    scroll-behavior: smooth;
+    background-color: #f7ebdc;
+    color: #4a1424;
+    font-family: var(--font-sans);
+  }
+
+  body {
+    margin: 0;
+    overflow-x: clip;
+    background-color: #f7ebdc;
+  }
+}
+
+/* Subtle royal Mughal floral damask wallpaper pattern for parchment sections */
+.bg-parchment-damask {
+  background-color: #f7ebdc;
+  background-image: url("data:image/svg+xml,%3Csvg width='120' height='120' viewBox='0 0 120 120' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='none' stroke='%23C9963E' stroke-width='0.6' stroke-opacity='0.16'%3E%3Cpath d='M60 15 C68 28 75 34 60 48 C45 34 52 28 60 15Z'/%3E%3Cpath d='M60 72 C68 85 75 91 60 105 C45 91 52 85 60 72Z'/%3E%3Cpath d='M15 60 C28 52 34 45 48 60 C34 75 28 68 15 60Z'/%3E%3Cpath d='M72 60 C85 52 91 45 105 60 C91 75 85 68 72 60Z'/%3E%3Ccircle cx='60' cy='60' r='5'/%3E%3Ccircle cx='0' cy='0' r='16'/%3E%3Ccircle cx='120' cy='0' r='16'/%3E%3Ccircle cx='0' cy='120' r='16'/%3E%3Ccircle cx='120' cy='120' r='16'/%3E%3C/g%3E%3C/svg%3E");
+}
+
+/* Subtle royal damask pattern for deep maroon curtains and ceremony hall */
+.bg-maroon-damask {
+  background-color: #4d0821;
+  background-image: url("data:image/svg+xml,%3Csvg width='140' height='140' viewBox='0 0 140 140' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='none' stroke='%23D4A24E' stroke-width='0.7' stroke-opacity='0.12'%3E%3Cpath d='M70 18 C82 34 90 42 70 60 C50 42 58 34 70 18Z'/%3E%3Cpath d='M70 80 C82 96 90 104 70 122 C50 104 58 96 70 80Z'/%3E%3Cpath d='M18 70 C34 58 42 50 60 70 C42 90 34 82 18 70Z'/%3E%3Cpath d='M80 70 C96 58 104 50 122 70 C104 90 96 82 80 70Z'/%3E%3Ccircle cx='70' cy='70' r='7'/%3E%3Cpath d='M0 0 Q35 20 0 40 M140 0 Q105 20 140 40 M0 140 Q35 120 0 100 M140 140 Q105 120 140 100'/%3E%3C/g%3E%3C/svg%3E");
+}
+
+/* Soft botanical wallpaper for hanging story gallery */
+.bg-story-botanical {
+  background-color: #f3e6d5;
+  background-image: url("data:image/svg+xml,%3Csvg width='180' height='180' viewBox='0 0 180 180' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='none' stroke='%23A87C64' stroke-width='0.75' stroke-opacity='0.14'%3E%3Cpath d='M40 140 Q52 95 45 55 Q35 72 28 85 M45 85 Q65 72 72 60'/%3E%3Ccircle cx='45' cy='48' r='8'/%3E%3Ccircle cx='74' cy='58' r='5'/%3E%3Cpath d='M135 160 Q125 110 140 70 Q150 85 160 95 M138 105 Q115 95 110 82'/%3E%3Ccircle cx='141' cy='62' r='7'/%3E%3Ccircle cx='108' cy='80' r='4'/%3E%3C/g%3E%3C/svg%3E");
+}
+
+/* Ornate turned brass roller shading */
+.scroll-roller-bar {
+  background: linear-gradient(
+    180deg,
+    #8c5d19 0%,
+    #d6a347 18%,
+    #f8df9b 42%,
+    #cf993c 68%,
+    #7f5110 100%
+  );
+  box-shadow: 0 8px 18px rgba(45, 10, 20, 0.35), inset 0 1px 1px rgba(255, 255, 255, 0.45);
+}
+
+.scroll-finial-knob {
+  background: radial-gradient(circle at 35% 30%, #fae6a8 0%, #d49e40 45%, #7c4d0f 100%);
+  box-shadow: 0 4px 10px rgba(35, 8, 16, 0.4);
+}
+
+/* Beaded vertical edge inside velvet scroll */
+.velvet-scroll-trim {
+  background-image: radial-gradient(circle, #e8c376 1.6px, transparent 1.7px);
+  background-size: 6px 10px;
+}
+
+/* Velvet fabric subtle sheen */
+.bg-velvet-maroon {
+  background:
+    linear-gradient(90deg, rgba(25, 2, 10, 0.32) 0%, rgba(125, 22, 58, 0.14) 18%, rgba(145, 28, 68, 0.16) 50%, rgba(125, 22, 58, 0.14) 82%, rgba(25, 2, 10, 0.32) 100%),
+    linear-gradient(180deg, #4b071e 0%, #640c2a 50%, #4b071e 100%);
+}
+
+@keyframes gentleSway {
+  0%, 100% {
+    transform: rotate(-1.1deg);
+  }
+  50% {
+    transform: rotate(1.1deg);
+  }
+}
+
+.animate-frame-sway {
+  animation: gentleSway 6s ease-in-out infinite;
+  transform-origin: top center;
+}
+
+@keyframes storyMarquee {
+  0% {
+    transform: translate3d(0, 0, 0);
+  }
+  100% {
+    transform: translate3d(-50%, 0, 0);
+  }
+}
+
+.animate-story-marquee {
+  animation: storyMarquee 42s linear infinite;
+  will-change: transform;
+}
+
+.story-marquee-container:hover .animate-story-marquee {
+  animation-play-state: paused;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .animate-frame-sway,
+  .animate-story-marquee {
+    animation: none;
+  }
+}

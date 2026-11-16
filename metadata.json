@@ -1,0 +1,6 @@
+{
+  "name": "Ankita & Kaushik — Royal Wedding Invitation",
+  "description": "An interactive royal Indian wedding invitation for Ankita & Kaushik featuring curtain reveal, unrolling velvet scrolls, slot-machine date reveal, hanging story gallery, ceremony schedule, and RSVP.",
+  "requestFramePermissions": [],
+  "majorCapabilities": ["MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"]
+}
