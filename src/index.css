@@ -108,9 +108,68 @@
   animation-play-state: paused;
 }
 
+@keyframes diyaFlicker {
+  0%, 100% {
+    opacity: 0.65;
+    transform: translate(-50%, -50%) scale(0.94);
+  }
+  18% {
+    opacity: 1;
+    transform: translate(-50%, -52%) scale(1.09);
+  }
+  37% {
+    opacity: 0.72;
+    transform: translate(-49%, -50%) scale(0.97);
+  }
+  58% {
+    opacity: 0.96;
+    transform: translate(-51%, -51%) scale(1.06);
+  }
+  78% {
+    opacity: 0.58;
+    transform: translate(-50%, -49%) scale(0.9);
+  }
+}
+
+@keyframes birdWingFlap {
+  0%, 100% {
+    transform: scaleY(1) scaleX(1);
+  }
+  50% {
+    transform: scaleY(0.35) scaleX(1.06);
+  }
+}
+
+@keyframes waterGlint {
+  0%, 100% {
+    opacity: 0.18;
+    transform: translateX(-6px) scaleX(0.95);
+  }
+  50% {
+    opacity: 0.55;
+    transform: translateX(6px) scaleX(1.08);
+  }
+}
+
+.animate-diya-flicker {
+  animation: diyaFlicker 2.6s ease-in-out infinite;
+}
+
+.animate-bird-flap {
+  animation: birdWingFlap 0.65s ease-in-out infinite;
+  transform-origin: center;
+}
+
+.animate-water-glint {
+  animation: waterGlint 4.2s ease-in-out infinite;
+}
+
 @media (prefers-reduced-motion: reduce) {
   .animate-frame-sway,
-  .animate-story-marquee {
+  .animate-story-marquee,
+  .animate-diya-flicker,
+  .animate-bird-flap,
+  .animate-water-glint {
     animation: none;
   }
 }

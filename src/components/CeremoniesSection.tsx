@@ -1,7 +1,7 @@
 import { MapPin } from 'lucide-react';
 import { motion } from 'motion/react';
 import { CEREMONIES, type CeremonyItem } from '../constants/assets';
-import { CornerGarland, TornPaperEdge } from './RoyalOrnaments';
+import { CornerGarland, TornPaperEdge, TransparentCreamArtwork } from './RoyalOrnaments';
 
 interface CeremoniesSectionProps {
   onSelectVenue: (ceremony: CeremonyItem) => void;
@@ -58,17 +58,13 @@ function MughalArchCard({
 
         {/* Card Inner Content Overlay perfectly aligned inside the Arch */}
         <div className="absolute inset-0 flex flex-col justify-between px-6 pt-12 pb-5">
-          {/* Upper Artwork centered neatly inside the Ogee Arch */}
-          <div className="flex items-center justify-center pt-2">
-            <img
+          {/* Upper Artwork centered neatly inside the Ogee Arch with transparent background */}
+          <div className="flex items-center justify-center pt-1">
+            <TransparentCreamArtwork
               src={ceremony.image}
               alt={`${ceremony.title} ceremony illustration`}
-              referrerPolicy="no-referrer"
-              style={{
-                WebkitMaskImage: 'radial-gradient(ellipse 72% 72% at 50% 52%, black 60%, transparent 98%)',
-                maskImage: 'radial-gradient(ellipse 72% 72% at 50% 52%, black 60%, transparent 98%)',
-              }}
-              className="w-36 h-36 sm:w-40 sm:h-40 object-contain mix-blend-multiply select-none pointer-events-none"
+              tolerance={38}
+              className="w-40 h-40 sm:w-44 sm:h-44"
             />
           </div>
 

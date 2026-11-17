@@ -2,17 +2,21 @@ import { useEffect, useState } from 'react';
 import { ASSETS } from '../constants/assets';
 
 /**
- * Flood-fills the outer cream background of the generated elephant illustration
- * so it renders cleanly with transparency on both maroon curtains and cream parchment.
+ * Edge-seeded flood-fill background remover for cream/tan watercolor illustrations
+ * so they blend with genuine transparency on any surface (maroon curtains, parchment, or arch cards).
  */
-export function RoyalElephantCutout({
+export function TransparentCreamArtwork({
+  src,
+  alt,
   flip = false,
   className = '',
-  alt = 'Royal ceremonial elephant',
+  tolerance = 36,
 }: {
+  src: string;
+  alt: string;
   flip?: boolean;
   className?: string;
-  alt?: string;
+  tolerance?: number;
 }) {
   const [processedSrc, setProcessedSrc] = useState<string | null>(null);
 
@@ -20,12 +24,12 @@ export function RoyalElephantCutout({
     let active = true;
     const img = new Image();
     img.crossOrigin = 'anonymous';
-    img.src = ASSETS.royalElephant;
+    img.src = src;
 
     img.onload = () => {
       if (!active) return;
       try {
-        const size = 480;
+        const size = 520;
         const canvas = document.createElement('canvas');
         canvas.width = size;
         canvas.height = size;
@@ -35,10 +39,24 @@ export function RoyalElephantCutout({
         const imgData = ctx.getImageData(0, 0, size, size);
         const data = imgData.data;
 
-        // Sample corner pixel as background reference
-        const bgR = data[0];
-        const bgG = data[1];
-        const bgB = data[2];
+        // Sample average of the 4 outer corner pixels as background reference
+        const corners = [
+          0,
+          (size - 1) * 4,
+          (size - 1) * size * 4,
+          (size * size - 1) * 4,
+        ];
+        let bgR = 0;
+        let bgG = 0;
+        let bgB = 0;
+        for (const c of corners) {
+          bgR += data[c];
+          bgG += data[c + 1];
+          bgB += data[c + 2];
+        }
+        bgR /= 4;
+        bgG /= 4;
+        bgB /= 4;
 
         const visited = new Uint8Array(size * size);
         const queue = new Int32Array(size * size);
@@ -53,13 +71,12 @@ export function RoyalElephantCutout({
           const dr = Math.abs(data[p] - bgR);
           const dg = Math.abs(data[p + 1] - bgG);
           const db = Math.abs(data[p + 2] - bgB);
-          if (dr < 34 && dg < 34 && db < 34) {
+          if (dr < tolerance && dg < tolerance && db < tolerance) {
             visited[idx] = 1;
             queue[tail++] = idx;
           }
         };
 
-        // Seed all 4 edges
         for (let x = 0; x < size; x++) {
           pushIfBg(x, 0);
           pushIfBg(x, size - 1);
@@ -72,7 +89,7 @@ export function RoyalElephantCutout({
         while (head < tail) {
           const idx = queue[head++];
           const p = idx * 4;
-          data[p + 3] = 0; // transparent
+          data[p + 3] = 0;
           const x = idx % size;
           const y = (idx - x) / size;
           pushIfBg(x + 1, y);
@@ -81,7 +98,7 @@ export function RoyalElephantCutout({
           pushIfBg(x, y - 1);
         }
 
-        // Soft feather 1px border around cleared region
+        // Soft 2-pass anti-aliased feather along foreground boundary
         for (let y = 1; y < size - 1; y++) {
           for (let x = 1; x < size - 1; x++) {
             const idx = y * size + x;
@@ -96,8 +113,8 @@ export function RoyalElephantCutout({
               const dr = Math.abs(data[p] - bgR);
               const dg = Math.abs(data[p + 1] - bgG);
               const db = Math.abs(data[p + 2] - bgB);
-              if (dr + dg + db < 135) {
-                data[p + 3] = 110;
+              if (dr + dg + db < tolerance * 4) {
+                data[p + 3] = 100;
               }
             }
           }
@@ -106,23 +123,43 @@ export function RoyalElephantCutout({
         ctx.putImageData(imgData, 0, 0);
         setProcessedSrc(canvas.toDataURL('image/png'));
       } catch {
-        setProcessedSrc(ASSETS.royalElephant);
+        setProcessedSrc(src);
       }
     };
 
     return () => {
       active = false;
     };
-  }, []);
+  }, [src, tolerance]);
 
   return (
     <img
-      src={processedSrc || ASSETS.royalElephant}
+      src={processedSrc || src}
       alt={alt}
       referrerPolicy="no-referrer"
       className={`${flip ? '-scale-x-100' : ''} ${
-        processedSrc ? '' : 'mix-blend-multiply'
-      } select-none pointer-events-none object-contain ${className}`}
+        processedSrc ? '' : 'mix-blend-multiply opacity-0'
+      } transition-opacity duration-200 select-none pointer-events-none object-contain ${className}`}
+    />
+  );
+}
+
+export function RoyalElephantCutout({
+  flip = false,
+  className = '',
+  alt = 'Royal ceremonial elephant',
+}: {
+  flip?: boolean;
+  className?: string;
+  alt?: string;
+}) {
+  return (
+    <TransparentCreamArtwork
+      src={ASSETS.royalElephant}
+      alt={alt}
+      flip={flip}
+      className={className}
+      tolerance={34}
     />
   );
 }

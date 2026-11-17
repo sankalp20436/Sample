@@ -1,10 +1,50 @@
 import { useRef } from 'react';
 import { motion, useScroll, useTransform } from 'motion/react';
 import { ASSETS } from '../constants/assets';
+import {
+  DiyaTwinkleLights,
+  FlyingTwilightBirds,
+  PondWaterRipples,
+  type LightPoint,
+} from './SceneAtmosphere';
 
 interface HeroMandapProps {
   revealNames: boolean;
 }
+
+const HERO_LIGHTS: LightPoint[] = [
+  // Mandap Chandeliers
+  { x: '50%', y: '41%', size: 58, duration: 3.1, delay: 0.1 },
+  { x: '46.5%', y: '45%', size: 38, duration: 2.6, delay: 0.4 },
+  { x: '53.5%', y: '45%', size: 38, duration: 2.8, delay: 0.8 },
+  { x: '50%', y: '53%', size: 30, duration: 2.4, delay: 1.1 },
+  // Left & Right Colonnade Hanging Lanterns
+  { x: '1.8%', y: '44%', size: 34, duration: 2.2, delay: 0.3 },
+  { x: '10.6%', y: '48%', size: 30, duration: 2.5, delay: 0.9 },
+  { x: '17.4%', y: '51%', size: 26, duration: 2.1, delay: 0.5 },
+  { x: '98.2%', y: '44%', size: 34, duration: 2.4, delay: 0.6 },
+  { x: '89.4%', y: '48%', size: 30, duration: 2.7, delay: 0.2 },
+  { x: '82.6%', y: '51%', size: 26, duration: 2.3, delay: 1.0 },
+  // Walkway Floor Brass Lanterns & Floating Diyas
+  { x: '29.8%', y: '90%', size: 42, duration: 2.1, delay: 0.1 },
+  { x: '34.8%', y: '82%', size: 34, duration: 2.4, delay: 0.7 },
+  { x: '37.8%', y: '76%', size: 28, duration: 2.0, delay: 1.2 },
+  { x: '40.5%', y: '71%', size: 24, duration: 2.3, delay: 0.4 },
+  { x: '26.6%', y: '95%', size: 26, duration: 1.9, delay: 0.8 },
+  { x: '70.2%', y: '90%', size: 42, duration: 2.2, delay: 0.5 },
+  { x: '65.2%', y: '82%', size: 34, duration: 2.5, delay: 1.1 },
+  { x: '62.2%', y: '76%', size: 28, duration: 2.1, delay: 0.3 },
+  { x: '59.5%', y: '71%', size: 24, duration: 2.4, delay: 0.9 },
+  { x: '73.4%', y: '95%', size: 26, duration: 2.0, delay: 0.2 },
+];
+
+const HERO_RIPPLE_CENTERS = [
+  { rx: 0.42, ry: 0.32 },
+  { rx: 0.58, ry: 0.44 },
+  { rx: 0.46, ry: 0.62 },
+  { rx: 0.36, ry: 0.78 },
+  { rx: 0.61, ry: 0.82 },
+];
 
 export function HeroMandap({ revealNames }: HeroMandapProps) {
   const sectionRef = useRef<HTMLElement>(null);
@@ -26,6 +66,9 @@ export function HeroMandap({ revealNames }: HeroMandapProps) {
           'linear-gradient(180deg, #E2C5E2 0%, #F2C9D7 24%, #FADDD2 50%, #F7EBDC 100%)',
       }}
     >
+      {/* Flying Silhouette Birds in the Pastel Sunset Sky */}
+      <FlyingTwilightBirds className="z-10 h-[42vh]" />
+
       {/* Calligraphic Couple Names sitting cleanly in the open pastel sunset sky */}
       <motion.div
         style={{ y: titleY, opacity: titleOpacity }}
@@ -71,6 +114,15 @@ export function HeroMandap({ revealNames }: HeroMandapProps) {
             referrerPolicy="no-referrer"
             className="w-full h-full object-cover object-bottom"
           />
+
+          {/* Pond Water Ripples on Central Lotus Pool */}
+          <PondWaterRipples
+            regionClassName="left-[34%] right-[34%] bottom-[1%] h-[32%]"
+            rippleCenters={HERO_RIPPLE_CENTERS}
+          />
+
+          {/* Twinkling Diya & Brass Lantern Flame Halos */}
+          <DiyaTwinkleLights lights={HERO_LIGHTS} />
         </div>
       </motion.div>
 
